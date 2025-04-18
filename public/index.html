@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="cs"> <!-- lepší český jazyk kvůli locale -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work-Done Diary</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="today-date" id="todayDate"></div>
+    <div>
+      <h1>Work-Done Diary</h1>
+      <p>Record your daily work and track your progress.</p>
+    </div>
+    <button class="open-form-btn" onclick="showForm()">+ Přidat záznam</button> 
+  </header>
+
+  <!-- Modal -->
+  <div id="formOverlay" class="overlay hidden">
+    <div class="container">
+      <button class="close-btn" onclick="hideForm()">x</button>
+
+      <form id="workForm">
+        <h2>Record Your Work</h2>
+        <p>Fill in the form below to record your work.</p><br>
+
+        <label for="datePicker">Datum</label>
+        <input type="date" id="datePicker" required>
+
+        <label for="workDescription">Popis činnosti</label>
+        <input type="text" id="workDescription" placeholder="Zadej činnost, na které jsi těžce pracoval" required>
+
+        <label for="timeOfWork">Odpracovaný čas</label>
+        <input type="text" id="timeOfWork" placeholder="1,5h nebo 90m" required>
+
+        <button type="button" onclick="recordWork()">Zapsat</button>
+        <button type="button" onclick="resetForm()">Resetovat</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Výpis záznamů (doplněno) -->
+  <main>
+    <ul id="recordsList"></ul>
+  </main>
+
+  <!-- Firebase knihovna pokud ještě není připojena -->
+  <!-- <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore.js"></script>
+  <script>
+    // Sem případně vložit Firebase inicializaci
+  </script> -->
+
+  <script src="../app.js"></script>
+</body>
+</html>
