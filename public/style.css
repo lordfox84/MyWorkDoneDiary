@@ -140,3 +140,33 @@ button:hover{
   opacity: 1;
   pointer-events: auto;
 }
+
+
+/* Záhlaví dne */
+.day-header {
+  background-color: rgb(46, 46, 46);
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(230, 230, 230, 0.5);
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  color: #15d0ff;
+}
+
+.day-header span {
+  font-weight: bold;
+}
+
+.record-item {
+  background-color: rgb(66, 66, 66);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  color: rgb(188, 252, 252);
+  box-shadow: 0 0 8px rgba(230, 230, 230, 0.3);
+}
+
+.record-item p {
+  margin: 0;
+}

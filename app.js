@@ -96,3 +96,61 @@ document.addEventListener("DOMContentLoaded", () => {
   // Načíst záznamy hned po načtení
   showRecords();
 });
+
+
+// Načíst záznamy, seskupit podle data a zobrazit
+window.showRecords = function () {
+  const db = firebase.firestore();
+  const recordsList = document.getElementById("recordsList");
+  recordsList.innerHTML = ""; // Resetovat seznam
+
+  db.collection("work").get().then((querySnapshot) => {
+    const recordsByDate = {};
+
+    // Seskupíme záznamy podle data
+    querySnapshot.forEach((doc) => {
+      const record = doc.data();
+      const recordDate = record.date;
+      if (!recordsByDate[recordDate]) {
+        recordsByDate[recordDate] = {
+          date: recordDate,
+          hours: 0,
+          records: []
+        };
+      }
+      recordsByDate[recordDate].records.push(record);
+      recordsByDate[recordDate].hours += parseFloat(record.hours);
+    });
+
+    // Pro každý den vytvoříme záhlaví a záznamy
+    for (const date in recordsByDate) {
+      const dateData = recordsByDate[date];
+      
+      // Vytvoříme záhlaví pro daný den
+      const dayHeader = document.createElement("div");
+      dayHeader.classList.add("day-header");
+
+      const dateText = document.createElement("span");
+      dateText.textContent = dateData.date;
+      dayHeader.appendChild(dateText);
+
+      const totalHours = document.createElement("span");
+      totalHours.textContent = `Součet: ${dateData.hours} h`;
+      dayHeader.appendChild(totalHours);
+
+      recordsList.appendChild(dayHeader);
+
+      // Vytvoříme záznamy pro daný den
+      dateData.records.forEach((record) => {
+        const recordItem = document.createElement("div");
+        recordItem.classList.add("record-item");
+
+        const recordText = document.createElement("p");
+        recordText.textContent = `${record.date} – ${record.hours} h – ${record.description}`;
+        recordItem.appendChild(recordText);
+
+        recordsList.appendChild(recordItem);
+      });
+    }
+  });
+};
